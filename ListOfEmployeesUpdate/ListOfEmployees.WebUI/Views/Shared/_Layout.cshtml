@@ -1,0 +1,49 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="keywords" content="" />
+    <meta name="description" content="" />
+    <link rel="shortcut icon" href="~/Content/Images/people.png" type="image/png">
+    <link href="~/Content/default.css" rel="stylesheet" type="text/css" media="all" />
+    <link href="~/Content/bootstrap.css" rel="stylesheet" />
+    <link href="~/Content/bootstrap-theme.css" rel="stylesheet" />
+    <title>@ViewBag.Title</title>
+</head>
+<body>
+    <div id="header" class="container">
+        <div id="logo">
+            <img src="~/Content/Images/fobos.png"/>
+            <h2>Personnel management</h2>
+        </div>
+        <div style="margin-top: 25px">
+            <div class="navbar-right" style="margin-right: 20px">
+                @Html.ActionLink("Contact", "Contact", "Employee",
+                    new { returnUrl = Request.Url.PathAndQuery },
+                    new { @class = "btn btn-default navbar-btn" })
+            </div>
+            <div class="navbar-right" style="margin-right: 20px">
+                @Html.ActionLink("Administration", "Index", "Admin",
+                    new { returnUrl = Request.Url.PathAndQuery },
+                    new { @class = "btn btn-default navbar-btn" })
+            </div>
+            <div class="navbar-right" style="margin-right: 20px">
+                @Html.ActionLink("Content", "List", "Employee",
+                    new { returnUrl = Request.Url.PathAndQuery },
+                    new { @class = "btn btn-default navbar-btn" })
+            </div>
+            <div class="navbar-right" style="margin-right: 20px">
+                @Html.ActionLink("Home", "Home", "Employee",
+                    new { returnUrl = Request.Url.PathAndQuery },
+                    new { @class = "btn btn-default navbar-btn" })
+            </div>
+        </div>
+    </div>
+    <div id="page" class="container">
+        @RenderBody()
+    </div>
+    <div id="copyright" class="container">
+        <p class="copy">&copy; Copyright 2015 Все права защищены</p>
+    </div>
+</body>
+</html>

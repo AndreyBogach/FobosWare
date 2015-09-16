@@ -1,0 +1,21 @@
+﻿@using System.Web.Mvc.Html
+@using System.Web.UI.HtmlControls
+@model IEnumerable<string>
+
+@Html.ActionLink("All", "Index", "Admin", null,
+                            new { @class = "btn btn-default dropdown-toggle" })
+
+@foreach (var link in Model)
+{
+    @Html.RouteLink(link, new
+    {
+        controller = "Admin",
+        action = "Index",
+        position = link,
+        page = 1
+    }, new
+    {
+        @class = "btn btn-default dropdown-toggle"
+         + (link == ViewBag.SelectedPosition ? " btn-primary" : "")
+    })
+}

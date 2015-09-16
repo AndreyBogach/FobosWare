@@ -1,0 +1,25 @@
+﻿@using ListOfEmployees.Domain.Entities
+@model Employee
+
+<div class="well" style="height: 140px">
+    @if (Model.ImageData != null)
+    {
+        <div class="pull-left" style="margin-right: 10px">
+            <img class="img-thumbnail" width="100" height="100"
+                 src="@Url.Action("GetImage", "Employee",
+                new { Model.EmployeeId })" />
+        </div>
+    }
+    <h4>
+        <strong>@Model.Name</strong>
+        @if(@Model.Status == "Active")
+        {
+            <span class="pull-right label label-success">@Model.Status</span>
+        }
+        @if (@Model.Status == "Inactive")
+        {
+            <span class="pull-right label label-primary">@Model.Status</span>
+        }
+    </h4>
+    <span class="lead">@Model.Position</span>
+</div>

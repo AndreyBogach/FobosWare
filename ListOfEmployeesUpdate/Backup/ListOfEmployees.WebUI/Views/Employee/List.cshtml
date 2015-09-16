@@ -1,0 +1,28 @@
+﻿@using ListOfEmployees.WebUI.Models
+@using ListOfEmployees.WebUI.HtmlHelpers
+@model EmployeesListViewModel
+
+@{
+    ViewBag.Title = "FobosWare";
+}
+
+<div class="row panel">
+    <div id="categories" class="col-xs-3">
+        @Html.Action("Menu", "Navi");
+    </div>
+    <div class="col-xs-8">
+       @foreach (var p in @Model.Employees)
+       {
+        @Html.Partial("EmployeeSummary", p)
+       }
+    </div>
+</div>
+
+<div class="btn-group pull-right">
+    <ul class="pagination">
+        <li>
+           @Html.PageLinks(Model.PagingInfo, x => Url.Action("List",
+                 new { page = x, status = Model.CurrentStatus}))
+        </li>
+    </ul>
+</div>

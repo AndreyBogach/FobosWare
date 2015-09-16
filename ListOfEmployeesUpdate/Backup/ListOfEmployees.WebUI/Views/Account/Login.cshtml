@@ -1,0 +1,32 @@
+﻿@model ListOfEmployees.WebUI.Models.UsersListViewModel
+
+@{
+    ViewBag.Title = "FobosWare";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="panel">
+    <div class="panel-heading">
+        <h3>System entry</h3>
+    </div>
+    <div class="panel-body">
+        <p class="lead">Please enter to the system to get the access to the administration pane:</p>
+        @using (Html.BeginForm())
+        {
+            @Html.ValidationSummary(true)
+            <div class="form-group">
+                <label>User name:</label>
+                @Html.TextBoxFor(m => m.UserName, new { @class = "form-control" })
+            </div>
+            <div class="form-group">
+                <label>Password:</label>
+                @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
+            </div>
+            <div class="form-group">
+                <label>Remember?</label>
+                @Html.EditorFor(m => m.RememberMe, new { @class = "form-control" })
+            </div>
+            <input type="submit" value="Sign in" class="btn btn-primary" />
+        }
+    </div>
+</div>

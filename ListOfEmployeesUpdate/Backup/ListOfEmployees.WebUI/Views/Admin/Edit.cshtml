@@ -1,0 +1,81 @@
+﻿@model ListOfEmployees.Domain.Entities.Employee
+
+@{
+    ViewBag.Title = "Edit";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="panel">
+    <div class="panel-heading">
+        <h3>Edit «@Model.Name»</h3>
+    </div>
+
+    @using (Html.BeginForm("Edit", "Admin",
+        FormMethod.Post, new { enctype = "multipart/form-data" }))
+    {
+        <div class="panel-body">
+            @Html.HiddenFor(m => m.EmployeeId)
+            @Html.HiddenFor(m => m.Tax)
+            @Html.HiddenFor(m => m.Net)
+            @foreach (var property in ViewData.ModelMetadata.Properties)
+            {
+                if (property.PropertyName != "EmployeeId"
+                    && property.PropertyName != "Tax"
+                    && property.PropertyName != "Net"
+                    && property.PropertyName != "ImageData"
+                    && property.PropertyName != "ImageMimeType")
+                {
+                    <div class="form-group">
+                        <label>@(property.DisplayName ?? property.PropertyName)</label>
+                        @if (property.PropertyName == "Status")
+                        {
+                            @Html.DropDownListFor(x => x.Status, new[]
+                            {
+                                new SelectListItem() {Text = "Active", Value = "Active"},
+                                new SelectListItem() {Text = "Inactive", Value = "Inactive"},
+                            },
+                                new { @class = "form-control" })
+                        }
+                        else
+                        {
+                            @Html.TextBox(property.PropertyName, null,
+                                new { @class = "form-control" })
+                        }
+                        @Html.ValidationMessage(property.PropertyName)
+                    </div>
+                }
+            }
+            <div class="form-group">
+                <div style="position:relative;">
+                    <label>Картинка</label>
+                    <a class='btn' href='javascript:;'>
+                        Выберите файл...
+                        <input type="file" name="Image" size="40"
+                               style="position:absolute;z-index:2;top:0;
+                                left:0;filter: alpha(opacity=0); opacity:0;
+                                background-color:transparent;color:transparent;"
+                               onchange='$("#upload-file-info").html($(this).val());'>
+                    </a>
+                    <span class='label label-info' id="upload-file-info"></span>
+                </div>
+                @if (Model.ImageData == null)
+                {
+                    <div class="form-control-static">Нет картинки</div>
+                }
+                else
+                {
+                    <img class="img-thumbnail" width="150" height="150"
+                         src="@Url.Action("GetImage", "Employee",
+                        new { Model.EmployeeId })" />
+                }
+            </div>
+        </div>
+        <div class="panel-footer">
+            <input type="submit" value="Save" class="btn btn-primary" />
+            @Html.ActionLink("Cancel the changes and return to the list", "Index", null, new
+            {
+                @class = "btn btn-default"
+            })
+        </div>
+    }
+</div>
